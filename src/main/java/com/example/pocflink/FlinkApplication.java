@@ -1,12 +1,12 @@
 package com.example.pocflink;
 
-import com.example.pocflink.service.FirstExample;
+import com.example.pocflink.service.Challenge;
 
 public class FlinkApplication {
 
 	public static void main(String[] args) throws Exception {
 
-		FirstExample firstExample = new FirstExample();
-		firstExample.run(args);
+		Challenge challenge = new Challenge();
+		challenge.run(args);
 	}
 }

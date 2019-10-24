@@ -28,7 +28,7 @@ public class FirstExample {
 
         DataSet<Tuple2<String, Integer>> counts = tokenized.groupBy(new int[] { 0 }).sum(1);
         if (params.has("output")) {
-            counts.writeAsCsv(params.get("output"), "\n", "").setParallelism(1);
+            counts.writeAsCsv(params.get("output"), "\n", " ").setParallelism(1);
         }
 
         env.execute("WordCount Example");
