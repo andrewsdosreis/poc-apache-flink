@@ -30,6 +30,22 @@ https://flink.apache.org/downloads.html
             "mainClass": "com.example.pocflink.FlinkApplication",
             "projectName": "pocflink",
             "args": "-input1 file:///D:/_and/apache-flink/person -input2 file:///D:/_and/apache-flink/location -output file:///D:/_and/apache-flink/innerJoinResult"
+        },
+        {
+            "type": "java",
+            "name": "(Launch) - Challenge",
+            "request": "launch",
+            "mainClass": "com.example.pocflink.FlinkApplication",
+            "projectName": "pocflink",
+            "args": "-clientes file:///D:/_and/apache-flink/clientes -contratos file:///D:/_and/apache-flink/contratos -parcelas file:///D:/_and/apache-flink/parcelas -output file:///D:/_and/apache-flink/clienteContratoParcela"
+        },
+        {
+            "type": "java",
+            "name": "(Launch) - WordCount Stream",
+            "request": "launch",
+            "mainClass": "com.example.pocflink.FlinkApplication",
+            "projectName": "pocflink",
+            "args": ""
         }
     ]
 }
