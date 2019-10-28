@@ -1,4 +1,4 @@
-package com.example.pocflink.service;
+package com.example.pocflink.service.dataset;
 
 import org.apache.flink.api.common.functions.JoinFunction;
 import org.apache.flink.api.common.functions.MapFunction;
@@ -10,7 +10,7 @@ import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.api.java.tuple.Tuple4;
 import org.apache.flink.api.java.utils.ParameterTool;
 
-public class Challenge {
+public class DataSetApi {
 
     public void run(String[] args) throws Exception {
 
@@ -65,7 +65,7 @@ public class Challenge {
                         return new Tuple4<Integer, String, String, Integer>(clienteContrato.f0, clienteContrato.f1,
                                 clienteContrato.f2, parcela.f1);
                     }
-                }).sortPartition(0, Order.ASCENDING);
+                }).sortPartition(2, Order.ASCENDING);
 
         clienteContratoParcela.writeAsCsv(params.get("output"), "\n", " ").setParallelism(1);
 

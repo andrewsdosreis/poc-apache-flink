@@ -1,4 +1,4 @@
-package com.example.pocflink.service;
+package com.example.pocflink.service.dataset;
 
 import org.apache.flink.api.common.functions.JoinFunction;
 import org.apache.flink.api.common.functions.MapFunction;
@@ -8,10 +8,9 @@ import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.api.java.utils.ParameterTool;
 
-public class LeftJoin {
+public class RightJoin {
 
     public void run(String[] args) throws Exception {
-
         // set up the execution environment
         final ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
@@ -39,24 +38,25 @@ public class LeftJoin {
                     }
                 });
 
-        // left outer join datasets on person_id
+        // right outer join datasets on person_id
         // joined format will be <id, person_name, state>
 
-        DataSet<Tuple3<Integer, String, String>> joined = personSet.leftOuterJoin(locationSet).where(0).equalTo(0).with(
-                new JoinFunction<Tuple2<Integer, String>, Tuple2<Integer, String>, Tuple3<Integer, String, String>>() {
+        DataSet<Tuple3<Integer, String, String>> joined = personSet.rightOuterJoin(locationSet).where(0).equalTo(0)
+                .with(new JoinFunction<Tuple2<Integer, String>, Tuple2<Integer, String>, Tuple3<Integer, String, String>>() {
+
                     public Tuple3<Integer, String, String> join(Tuple2<Integer, String> person,
                             Tuple2<Integer, String> location) {
                         // check for nulls
-                        if (location == null) {
-                            return new Tuple3<Integer, String, String>(person.f0, person.f1, "NULL");
+                        if (person == null) {
+                            return new Tuple3<Integer, String, String>(location.f0, "NULL", location.f1);
                         }
 
                         return new Tuple3<Integer, String, String>(person.f0, person.f1, location.f1);
                     }
-                });
+                });// .collect();
 
         joined.writeAsCsv(params.get("output"), "\n", " ").setParallelism(1);
 
-        env.execute("Left Outer Join Example");
+        env.execute("Right Outer Join Example");
     }
 }
