@@ -14,7 +14,7 @@ public class Reduce {
         // set up the streaming execution environment
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        DataStream<String> data = env.readTextFile("/home/jivesh/avg");
+        DataStream<String> data = env.readTextFile("./data/stream/avg");
 
         // month, product, category, profit, count
         DataStream<Tuple5<String, String, String, Integer, Integer>> mapped = data.map(new Splitter()); // tuple
