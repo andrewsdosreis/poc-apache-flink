@@ -22,6 +22,6 @@ public class FlinkApplication {
 		// split.run(args);
 
 		Aggregation aggregation = new Aggregation();
-		aggregation.run(args);		
+		aggregation.run();
 	}
 }

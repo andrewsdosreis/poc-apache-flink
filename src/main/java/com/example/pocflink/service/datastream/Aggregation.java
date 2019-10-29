@@ -7,7 +7,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 public class Aggregation {
 
-    public void run(String[] args) throws Exception {
+    public void run() throws Exception {
 
         // set up the streaming execution environment
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

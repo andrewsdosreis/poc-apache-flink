@@ -10,6 +10,7 @@ https://flink.apache.org/downloads.html
 
 .\flink run D:\_and\apache-flink\src\pocflink\build\libs\pocflink-0.0.1-SNAPSHOT.jar -input file:///D:/_and/apache-flink/teste -output file:///D:/_and/apache-flink/teste_out
 
+.\flink run D:\_and\github\poc-apache-flink\build\libs\pocflink-0.0.1-SNAPSHOT.jar
 
 # vscode debug
 
