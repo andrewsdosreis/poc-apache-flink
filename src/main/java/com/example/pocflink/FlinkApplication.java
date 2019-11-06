@@ -1,6 +1,6 @@
 package com.example.pocflink;
 
-import com.example.pocflink.service.datastream.Aggregation;
+import com.example.pocflink.service.window.Challenge;
 
 public class FlinkApplication {
 
@@ -21,7 +21,10 @@ public class FlinkApplication {
 		// Split split = new Split();
 		// split.run(args);
 
-		Aggregation aggregation = new Aggregation();
-		aggregation.run();
+		// Aggregation aggregation = new Aggregation();
+		// aggregation.run();
+
+		Challenge challenge = new Challenge();
+		challenge.run(args);
 	}
 }
