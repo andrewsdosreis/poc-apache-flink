@@ -25,19 +25,18 @@ public class Challenge {
 
         env.getConfig().setGlobalJobParameters(params);
 
-        DataStream<String> clientesData = env.socketTextStream("localhost", 9997);
-        DataStream<String> contratosData = env.socketTextStream("localhost", 9998);
-        DataStream<String> parcelasData = env.socketTextStream("localhost", 9999);
+        DataStream<String> clientsData = env.socketTextStream("localhost", 9997);
+        DataStream<String> contractsData = env.socketTextStream("localhost", 9998);
 
-        DataStream<Tuple2<String, String>> clientes = clientesData.map(new Splitter());
-        DataStream<Tuple2<String, String>> contratos = contratosData.map(new Splitter());
-        DataStream<Tuple2<String, String>> parcelas = parcelasData.map(new Splitter());
+        DataStream<Tuple2<String, String>> clients = clientsData.map(new Splitter());
+        DataStream<Tuple2<String, String>> contracts = contractsData.map(new Splitter());
 
-        DataStream<Tuple3<String, String, String>> clienteContrato = clientes
-                                                                        .join(contratos)
+        DataStream<Tuple3<String, String, String>> clientContracts = clients
+                                                                        .join(contracts)
                                                                         .where(new NameKeySelector())
                                                                         .equalTo(new NameKeySelector())
-                                                                        .window(TumblingEventTimeWindows.of(Time.milliseconds(2000)))
+                                                                        .window(TumblingEventTimeWindows.of(Time.milliseconds(30000)))
+                                                                        //.window(EventTimeSessionWindows.withGap(Time.seconds(2)))
                                                                         .apply (new JoinFunction<Tuple2<String, String>, Tuple2<String, String>, Tuple3<String, String, String>>() {
                                                                                         @Override
                                                                                         public Tuple3<String, String, String> join(Tuple2<String, String> cliente, Tuple2<String, String> contrato) {
@@ -47,11 +46,10 @@ public class Challenge {
                                                                                 );
 
         
-        clientes.writeAsCsv("./data/challenge_clientes_output", WriteMode.NO_OVERWRITE, "\n", " ").setParallelism(1);
-        contratos.writeAsCsv("./data/challenge_contratos_output", WriteMode.NO_OVERWRITE, "\n", " ").setParallelism(1);
-        parcelas.writeAsCsv("./data/challenge_parcelas_output", WriteMode.NO_OVERWRITE, "\n", " ").setParallelism(1);
+        clients.writeAsCsv("./data/challenge/clients_output", WriteMode.NO_OVERWRITE, "\n", " ").setParallelism(1);
+        contracts.writeAsCsv("./data/challenge/contracts_output", WriteMode.NO_OVERWRITE, "\n", " ").setParallelism(1);
 
-        clienteContrato.writeAsCsv("./data/challenge_output", WriteMode.NO_OVERWRITE, "\n", " ").setParallelism(1);
+        clientContracts.writeAsCsv("./data/challenge/output", WriteMode.NO_OVERWRITE, "\n", " ").setParallelism(1);
 
         env.execute("Streaming Challenge");
     }
