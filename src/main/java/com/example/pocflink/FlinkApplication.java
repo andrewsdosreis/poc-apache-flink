@@ -1,30 +1,27 @@
 package com.example.pocflink;
 
-import com.example.pocflink.service.window.Challenge;
+import com.example.pocflink.service.window.GlobalProcessing;
 
 public class FlinkApplication {
 
 	public static void main(String[] args) throws Exception {
 
-		// DataSetApi dataSetApi = new DataSetApi();
-		// dataSetApi.run(args);
+		// DataSetApi process = new DataSetApi();
+		
+		/* Stream Processing */
+		// WordCount process = new WordCount();
+		// Reduce process = new Reduce();
+		// Iterate process = new Iterate();
+		// Split process = new Split();
+		// Aggregation process = new Aggregation();
 
-		// WordCount wordCount = new WordCount();
-		// wordCount.run(args);
+		/* Window Assigned */
+		// Challenge process = new Challenge();
+		// TumblingEvent process = new TumblingEvent();
+		//TumblingProcessing process = new TumblingProcessing();
 
-		// Reduce reduce = new Reduce();
-		// reduce.run(args);
+		GlobalProcessing process = new GlobalProcessing();
 
-		// Iterate iterate = new Iterate();
-		// iterate.run(args);
-
-		// Split split = new Split();
-		// split.run(args);
-
-		// Aggregation aggregation = new Aggregation();
-		// aggregation.run();
-
-		Challenge challenge = new Challenge();
-		challenge.run(args);
+		process.run(args);
 	}
 }
